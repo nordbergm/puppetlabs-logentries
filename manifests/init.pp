@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-class logentries($account_key) {
+class logentries($account_key, $host_name, $fqdn) {
 
   require logentries::dependencies
 
@@ -26,7 +26,7 @@ class logentries($account_key) {
   }
 
   exec { 'le_register':
-    command => "/usr/bin/le register --yes --account-key=${account_key}",
+    command => "/usr/bin/le register --yes --account-key=${account_key} --name=${host_name} --hostname=${fqdn}",
     creates => '/etc/le/config',
     require => Package['logentries'],
     notify  => Service['logentries'],
